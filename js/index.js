@@ -19,6 +19,10 @@ moviecards.innerHTML="";
 updatestatus("loading...")
 
 const moviedata = await fetchmovies(searchresult);
+if(moviedata){
+updatestatus("");
+rendermoviecards(moviedata);
+}
 
 
 
@@ -59,3 +63,43 @@ catch (error) {
 
 
 
+function rendermoviecards(data){
+   moviecards.innerHTML="";
+   const movies= data.Search;
+    movies.forEach(movie=> {
+        const moviename = movie.Title;
+        const releaseYear = movie.Year;
+        const id = movie.imdbID;
+        const poster = movie.Poster;
+        
+        const maindiv = document.createElement("div");
+        const img = document.createElement("img");
+        const movieinfodiv = document.createElement("div");
+        const Moviename = document.createElement("h3");
+        const year = document.createElement("p");
+        const details= document.createElement("button");
+
+       maindiv.classList.add("movie-card");
+       movieinfodiv.classList.add("movie-info");
+       img.src = poster;
+           
+        
+        
+        Moviename.textContent = moviename;
+        year.textContent = releaseYear;
+
+        details.textContent = "View Details";
+
+        
+        movieinfodiv.appendChild(Moviename);
+        movieinfodiv.appendChild(year);
+        movieinfodiv.appendChild(details);
+
+        maindiv.appendChild(img);
+        maindiv.appendChild(movieinfodiv);
+
+        moviecards.appendChild(maindiv);
+
+   });
+
+}
