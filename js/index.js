@@ -81,13 +81,20 @@ function rendermoviecards(data){
 
        maindiv.classList.add("movie-card");
        movieinfodiv.classList.add("movie-info");
-       img.src = poster;
-           
-        
+       if (poster === "N/A") {
+            img.src = "../images/unfetch.jpeg";
+        } else {
+            img.src = poster;
+        }    
+
+            img.onerror = function () {
+             this.onerror = null;
+             this.src = "../images/unfetch.jpeg";
+              };
         
         Moviename.textContent = moviename;
         year.textContent = releaseYear;
-
+ 
         details.textContent = "View Details";
 
         
